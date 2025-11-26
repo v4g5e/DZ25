@@ -1,0 +1,395 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp9
+{
+    // Задание 51
+    interface IShape { double GetArea(); }
+    struct Shape51 : IShape
+    {
+        public double Width, Height;
+        public double GetArea() => Width * Height;
+    }
+
+    // Задание 52
+    interface IVehicle { void Drive(); }
+    struct Vehicle52 : IVehicle
+    {
+        public string Brand;
+        public void Drive() => Console.WriteLine($"Вождение {Brand}");
+    }
+    struct Car52 : IVehicle
+    {
+        public string Brand;
+        public void Drive() => Console.WriteLine($"Вождение автомобиля {Brand}");
+    }
+
+    // Задание 53
+    struct Animal53
+    {
+        public string Name;
+        public void Info() => Console.WriteLine($"Животное: {Name}");
+    }
+
+    // Задание 54
+    struct Point54 : IComparable
+    {
+        public double X, Y;
+        public int CompareTo(object obj)
+        {
+            if (!(obj is Point54 other)) return 0;
+            return (X + Y).CompareTo(other.X + other.Y);
+        }
+    }
+
+    // Задание 55
+    struct Number55 : IEquatable<Number55>
+    {
+        public int Value;
+        public bool Equals(Number55 other) => Value == other.Value;
+    }
+
+    // Задание 56
+    struct Employee56 : ICloneable
+    {
+        public string Name;
+        public object Clone() => new Employee56 { Name = Name };
+    }
+
+    // Задание 57
+    interface IDrawable { void Draw(); }
+    struct Shape57 : IDrawable
+    {
+        public void Draw() => Console.WriteLine("Рисование фигуры");
+    }
+
+    // Задание 58
+    interface IValidatable { bool IsValid(); }
+    struct Person58 : IValidatable
+    {
+        public string Name;
+        public bool IsValid() => !string.IsNullOrEmpty(Name);
+    }
+
+    // Задание 59
+    interface ISaveable { void Save(); }
+    struct Document59 : ISaveable
+    {
+        public string Content;
+        public void Save() => File.WriteAllText("doc.txt", Content);
+    }
+
+    // Задание 60
+    interface IEnumerable60
+    {
+        IEnumerator GetEnumerator();
+    }
+
+    // Задание 61 (исправлено: убрано наследование от IDisposable)
+    interface IDisposable61
+    {
+        void Close();
+    }
+
+    // Задание 62
+    struct Point62 : IComparable
+    {
+        public double X, Y;
+        public int CompareTo(object obj)
+        {
+            if (!(obj is Point62 other)) return 0;
+            double dist1 = Math.Sqrt(X * X + Y * Y);
+            double dist2 = Math.Sqrt(other.X * other.X + other.Y * other.Y);
+            return dist1.CompareTo(dist2);
+        }
+    }
+
+    // Задание 63
+    struct Money63 : IFormattable
+    {
+        public decimal Amount;
+        public string Currency;
+        public string ToString(string format, IFormatProvider formatProvider)
+        {
+            return $"{Amount} {Currency}";
+        }
+    }
+
+    // Задание 64
+    struct Event64
+    {
+        public string Name;
+        public DateTime Time;
+    }
+
+    // Задание 65
+    struct Logger65
+    {
+        public void Log(string message) => Console.WriteLine($"[LOG] {message}");
+    }
+
+    // Задание 66
+    interface ICollection66 { int Count { get; } }
+
+    // Задание 67
+    interface IObserver67 { void Update(string message); }
+
+    // Задание 68
+    struct Service68 : IDisposable
+    {
+        public void Dispose() => Console.WriteLine("Service68 освобождён");
+    }
+
+    // Задание 69
+    struct Validator69
+    {
+        public bool ValidateEmail(string email) => email.Contains("@");
+    }
+
+    // Задание 70
+    struct Handler70
+    {
+        public void Handle(string message) => Console.WriteLine($"Обработка: {message}");
+    }
+
+    // Задание 71
+    interface ICacheable71 { void Cache(); }
+
+    // Задание 72
+    interface IParser72 { object Parse(string input); }
+
+    // Задание 73
+    interface IComparer73 { int Compare(object a, object b); }
+
+    // Задание 74
+    interface ISerializable74 { string Serialize(); }
+
+    // Задание 75
+    interface IAsyncTask { Task ExecuteAsync(); }
+
+    class Program
+    {
+        static void Main()
+        {
+            while (true)
+            {
+                Console.WriteLine("\nВыберите задание для демонстрации (1-25) или 0 для выхода:");
+                Console.WriteLine("Задания 51–75");
+                if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 0 || choice > 25)
+                {
+                    Console.WriteLine("Неверный ввод");
+                    continue;
+                }
+                if (choice == 0) break;
+
+                switch (choice)
+                {
+                    case 1:  Demonstrate51(); break;
+                    case 2:  Demonstrate52(); break;
+                    case 3:  Demonstrate53(); break;
+                    case 4:  Demonstrate54(); break;
+                    case 5:  Demonstrate55(); break;
+                    case 6:  Demonstrate56(); break;
+                    case 7:  Demonstrate57(); break;
+                    case 8:  Demonstrate58(); break;
+                    case 9:  Demonstrate59(); break;
+                    case 10: Demonstrate60(); break;
+                    case 11: Demonstrate61(); break;
+                    case 12: Demonstrate62(); break;
+                    case 13: Demonstrate63(); break;
+                    case 14: Demonstrate64(); break;
+                    case 15: Demonstrate65(); break;
+                    case 16: Demonstrate66(); break;
+                    case 17: Demonstrate67(); break;
+                    case 18: Demonstrate68(); break;
+                    case 19: Demonstrate69(); break;
+                    case 20: Demonstrate70(); break;
+                    case 21: Demonstrate71(); break;
+                    case 22: Demonstrate72(); break;
+                    case 23: Demonstrate73(); break;
+                    case 24: Demonstrate74(); break;
+                    case 25: Demonstrate75(); break;
+                }
+            }
+        }
+
+        // 51
+        static void Demonstrate51()
+        {
+            Shape51 shape = new Shape51 { Width = 5, Height = 3 };
+            Console.WriteLine($"[51] Площадь фигуры: {shape.GetArea()}");
+        }
+
+        // 52
+        static void Demonstrate52()
+        {
+            Vehicle52 v = new Vehicle52 { Brand = "Грузовик" };
+            Car52 c = new Car52 { Brand = "Лада" };
+            v.Drive();
+            c.Drive();
+        }
+
+        // 53
+        static void Demonstrate53()
+        {
+            Animal53 animal = new Animal53 { Name = "Тигр" };
+            animal.Info();
+        }
+
+        // 54
+        static void Demonstrate54()
+        {
+            Point54 p1 = new Point54 { X = 3, Y = 4 };
+            Point54 p2 = new Point54 { X = 1, Y = 1 };
+            Console.WriteLine($"[54] p1 > p2: {p1.CompareTo(p2) > 0}");
+        }
+
+        // 55
+        static void Demonstrate55()
+        {
+            Number55 n1 = new Number55 { Value = 100 };
+            Number55 n2 = new Number55 { Value = 100 };
+            Console.WriteLine($"[55] Числа равны: {n1.Equals(n2)}");
+        }
+
+        // 56
+        static void Demonstrate56()
+        {
+            Employee56 emp = new Employee56 { Name = "Олег" };
+            Employee56 clone = (Employee56)emp.Clone();
+            Console.WriteLine($"[56] Клон: {clone.Name}");
+        }
+
+        // 57
+        static void Demonstrate57()
+        {
+            IDrawable drawable = new Shape57();
+            drawable.Draw();
+        }
+
+        // 58
+        static void Demonstrate58()
+        {
+            Person58 person = new Person58 { Name = "Анна" };
+            Console.WriteLine($"[58] Валидно: {person.IsValid()}");
+        }
+
+        // 59
+        static void Demonstrate59()
+        {
+            Document59 doc = new Document59 { Content = "Привет, мир!" };
+            doc.Save();
+            Console.WriteLine("[59] Документ сохранён в doc.txt");
+        }
+
+        // 60
+        static void Demonstrate60()
+        {
+            Console.WriteLine("[60] Интерфейс IEnumerable60 объявлен (без реализации)");
+        }
+
+        // 61
+        static void Demonstrate61()
+        {
+            Console.WriteLine("[61] Интерфейс IDisposable61 с методом Close() (исправлено)");
+        }
+
+        // 62
+        static void Demonstrate62()
+        {
+            Point62 p1 = new Point62 { X = 3, Y = 4 }; // 5
+            Point62 p2 = new Point62 { X = 1, Y = 0 }; // 1
+            Console.WriteLine($"[62] p1 дальше: {p1.CompareTo(p2) > 0}");
+        }
+
+        // 63
+        static void Demonstrate63()
+        {
+            Money63 money = new Money63 { Amount = 999.99m, Currency = "RUB" };
+            Console.WriteLine($"[63] Деньги: {money.ToString(null, null)}");
+        }
+
+        // 64
+        static void Demonstrate64()
+        {
+            Event64 evt = new Event64 { Name = "Встреча", Time = DateTime.Now };
+            Console.WriteLine($"[64] Событие: {evt.Name} в {evt.Time:HH:mm}");
+        }
+
+        // 65
+        static void Demonstrate65()
+        {
+            Logger65 logger = new Logger65();
+            logger.Log("Система запущена");
+        }
+
+        // 66
+        static void Demonstrate66()
+        {
+            Console.WriteLine("[66] Интерфейс ICollection66 с Count");
+        }
+
+        // 67
+        static void Demonstrate67()
+        {
+            Console.WriteLine("[67] Интерфейс IObserver67 с Update()");
+        }
+
+        // 68
+        static void Demonstrate68()
+        {
+            using (Service68 svc = new Service68())
+            {
+                Console.WriteLine("[68] Сервис работает...");
+            }
+        }
+
+        // 69
+        static void Demonstrate69()
+        {
+            Validator69 val = new Validator69();
+            Console.WriteLine($"[69] Email валиден: {val.ValidateEmail(\"user@domain.com\")}");
+        }
+
+        // 70
+        static void Demonstrate70()
+        {
+            Handler70 handler = new Handler70();
+            handler.Handle("Ошибка сети");
+        }
+
+        // 71
+        static void Demonstrate71()
+        {
+            Console.WriteLine("[71] Интерфейс ICacheable71 → void Cache()");
+        }
+
+        // 72
+        static void Demonstrate72()
+        {
+            Console.WriteLine("[72] Интерфейс IParser72 → object Parse(string)");
+        }
+
+        // 73
+        static void Demonstrate73()
+        {
+            Console.WriteLine("[73] Интерфейс IComparer73 → int Compare(object, object)");
+        }
+
+        // 74
+        static void Demonstrate74()
+        {
+            Console.WriteLine("[74] Интерфейс ISerializable74 → string Serialize()");
+        }
+
+        // 75
+        static void Demonstrate75()
+        {
+            Console.WriteLine("[75] Интерфейс IAsyncTask → Task ExecuteAsync()");
+        }
+    }
+}

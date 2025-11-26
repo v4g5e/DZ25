@@ -1,0 +1,414 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp10
+{
+    // Задание 76
+    struct Company
+    {
+        public string Name;
+        public struct CompanyEmployee { public string Name; public decimal Salary; }
+    }
+
+    // Задание 77
+    struct Tree
+    {
+        public class Node { public int Value; public Node Left, Right; }
+    }
+
+    // Задание 78
+    struct Graph
+    {
+        public class Vertex { public int ID; }
+        public class Edge { public Vertex From, To; }
+    }
+
+    // Задание 79
+    struct Library
+    {
+        public struct LibraryBook { public string Title, Author; }
+    }
+
+    // Задание 80
+    struct Dictionary80
+    {
+        public struct Entry { public string Key; public string Value; }
+    }
+
+    // Задание 81
+    struct LinkedList81
+    {
+        public class Node { public int Data; public Node Next; }
+    }
+
+    // Задание 82
+    struct Database
+    {
+        public class Table { public string Name; }
+        public class Column { public string Name; }
+    }
+
+    // Задание 83
+    struct Window
+    {
+        public
+
+ class Button { public string Text; }
+        public class TextField { public string Text; }
+    }
+
+    // Задание 84
+    struct Game
+    {
+        public struct GamePlayer { public string Name; }
+        public struct Level { public int Number; }
+    }
+
+    // Задание 85
+    struct API
+    {
+        public class Request { public string URL; }
+        public class Response { public int StatusCode; }
+    }
+
+    // Задание 86
+    struct Project
+    {
+        public class ProjectTask { public string Name; }
+        public class Milestone { public string Description; }
+    }
+
+    // Задание 87
+    struct Menu
+    {
+        public class Item { public string Text; }
+        public class Submenu { public List<Item> Items; }
+    }
+
+    // Задание 88
+    struct Document88
+    {
+        public class Section { public string Title; }
+        public class Paragraph { public string Content; }
+    }
+
+    // Задание 89
+    struct Network
+    {
+        public struct Host { public string IP; }
+        public struct Port { public int Number; }
+    }
+
+    // Задание 90
+    struct Transaction
+    {
+        public struct Detail { public string Description; public decimal Amount; }
+    }
+
+    // Задание 91
+    struct Form
+    {
+        public class Field { public string Label; public string Value; }
+    }
+
+    // Задание 92
+    struct Report
+    {
+        public class Header { public string Title; }
+        public class Body { public string Content; }
+    }
+
+    // Задание 93
+    struct Shopping
+    {
+        public struct CartItem { public string ProductName; public int Quantity; }
+    }
+
+    // Задание 94
+    struct School
+    {
+        public class Class { public string Name; }
+        public class StudentInfo { public string Name; }
+    }
+
+    // Задание 95
+    struct Hospital
+    {
+        public struct Doctor { public string Name; }
+        public struct Patient { public string Name; }
+    }
+
+    // Задание 96
+    struct Queue96
+    {
+        public class Node { public int Value; public Node Next; }
+    }
+
+    // Задание 97
+    struct Stack97
+    {
+        public class Element { public int Value; public Element Next; }
+    }
+
+    // Задание 98
+    struct Container98
+    {
+        public interface IElement { }
+    }
+
+    // Задание 99
+    struct Blog
+    {
+        public class Post { public string Title; public string Content; }
+        public class Comment { public string Text; }
+    }
+
+    // Задание 100
+    struct Repository
+    {
+        public struct Entity { public int ID; public string Name; }
+    }
+
+    class Program
+    {
+        static void Main()
+        {
+            while (true)
+            {
+                Console.WriteLine("\nВыберите задание для демонстрации (1-25) или 0 для выхода:");
+                Console.WriteLine("Задания 76–100");
+                if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 0 || choice > 25)
+                {
+                    Console.WriteLine("Неверный ввод");
+                    continue;
+                }
+                if (choice == 0) break;
+
+                switch (choice)
+                {
+                    case 1:  Demonstrate76(); break;
+                    case 2:  Demonstrate77(); break;
+                    case 3:  Demonstrate78(); break;
+                    case 4:  Demonstrate79(); break;
+                    case 5:  Demonstrate80(); break;
+                    case 6:  Demonstrate81(); break;
+                    case 7:  Demonstrate82(); break;
+                    case 8:  Demonstrate83(); break;
+                    case 9:  Demonstrate84(); break;
+                    case 10: Demonstrate85(); break;
+                    case 11: Demonstrate86(); break;
+                    case 12: Demonstrate87(); break;
+                    case 13: Demonstrate88(); break;
+                    case 14: Demonstrate89(); break;
+                    case 15: Demonstrate90(); break;
+                    case 16: Demonstrate91(); break;
+                    case 17: Demonstrate92(); break;
+                    case 18: Demonstrate93(); break;
+                    case 19: Demonstrate94(); break;
+                    case 20: Demonstrate95(); break;
+                    case 21: Demonstrate96(); break;
+                    case 22: Demonstrate97(); break;
+                    case 23: Demonstrate98(); break;
+                    case 24: Demonstrate99(); break;
+                    case 25: Demonstrate100(); break;
+                }
+            }
+        }
+
+        // 76
+        static void Demonstrate76()
+        {
+            Company comp = new Company { Name = "ООО Успех" };
+            Company.CompanyEmployee emp = new Company.CompanyEmployee { Name = "Иван", Salary = 75000 };
+            Console.WriteLine($"[76] Компания: {comp.Name}, Сотрудник: {emp.Name}, ЗП: {emp.Salary}");
+        }
+
+        // 77
+        static void Demonstrate77()
+        {
+            Tree.Node root = new Tree.Node { Value = 42, Left = new Tree.Node { Value = 10 }, Right = new Tree.Node { Value = 50 } };
+            Console.WriteLine($"[77] Дерево: корень = {root.Value}, левый = {root.Left.Value}, правый = {root.Right.Value}");
+        }
+
+        // 78
+        static void Demonstrate78()
+        {
+            Graph.Vertex v1 = new Graph.Vertex { ID = 1 };
+            Graph.Vertex v2 = new Graph.Vertex { ID = 2 };
+            Graph.Edge edge = new Graph.Edge { From = v1, To = v2 };
+            Console.WriteLine($"[78] Ребро: {edge.From.ID} → {edge.To.ID}");
+        }
+
+        // 79
+        static void Demonstrate79()
+        {
+            Library.LibraryBook book = new Library.LibraryBook { Title = "1984", Author = "Джордж Оруэлл" };
+            Console.WriteLine($"[79] Книга: {book.Title} — {book.Author}");
+        }
+
+        // 80
+        static void Demonstrate80()
+        {
+            Dictionary80.Entry entry = new Dictionary80.Entry { Key = "столица", Value = "Москва" };
+            Console.WriteLine($"[80] Словарь: {entry.Key} = {entry.Value}");
+        }
+
+        // 81
+        static void Demonstrate81()
+        {
+            LinkedList81.Node head = new LinkedList81.Node { Data = 1 };
+            head.Next = new LinkedList81.Node { Data = 2 };
+            Console.WriteLine($"[81] Связный список: {head.Data} → {head.Next.Data}");
+        }
+
+        // 82
+        static void Demonstrate82()
+        {
+            Database.Table table = new Database.Table { Name = "Users" };
+            Database.Column col = new Database.Column { Name = "Email" };
+            Console.WriteLine($"[82] БД: таблица '{table.Name}', колонка '{col.Name}'");
+        }
+
+        // 83
+        static void Demonstrate83()
+        {
+            Window.Button btn = new Window.Button { Text = "Сохранить" };
+            Window.TextField field = new Window.TextField { Text = "Введите имя" };
+            Console.WriteLine($"[83] Окно: кнопка '{btn.Text}', поле: '{field.Text}'");
+        }
+
+        // 84
+        static void Demonstrate84()
+        {
+            Game.GamePlayer player = new Game.GamePlayer { Name = "GamerPro" };
+            Game.Level level = new Game.Level { Number = 5 };
+            Console.WriteLine($"[84] Игрок: {player.Name}, Уровень: {level.Number}");
+        }
+
+        // 85
+        static void Demonstrate85()
+        {
+            API.Request req = new API.Request { URL = "https://api.example.com/data" };
+            API.Response resp = new API.Response { StatusCode = 200 };
+            Console.WriteLine($"[85] API: запрос → {req.URL}, ответ: {resp.StatusCode}");
+        }
+
+        // 86
+        static void Demonstrate86()
+        {
+            Project.ProjectTask task = new Project.ProjectTask { Name = "Рефакторинг" };
+            Project.Milestone milestone = new Project.Milestone { Description = "Релиз v1.0" };
+            Console.WriteLine($"[86] Задача: {task.Name}, Веха: {milestone.Description}");
+        }
+
+        // 87
+        static void Demonstrate87()
+        {
+            Menu.Item file = new Menu.Item { Text = "Файл" };
+            Menu.Submenu submenu = new Menu.Submenu { Items = new List<Menu.Item> { file } };
+            Console.WriteLine($"[87] Подменю: содержит '{submenu.Items[0].Text}'");
+        }
+
+        // 88
+        static void Demonstrate88()
+        {
+            Document88.Section sec = new Document88.Section { Title = "Введение" };
+            Document88.Paragraph para = new Document88.Paragraph { Content = "Это первый абзац." };
+            Console.WriteLine($"[88] Документ: раздел '{sec.Title}', абзац: '{para.Content}'");
+        }
+
+        // 89
+        static void Demonstrate89()
+        {
+            Network.Host host = new Network.Host { IP = "192.168.0.1" };
+            Network.Port port = new Network.Port { Number = 8080 };
+            Console.WriteLine($"[89] Сеть: хост {host.IP}, порт {port.Number}");
+        }
+
+        // 90
+        static void Demonstrate90()
+        {
+            Transaction.Detail detail = new Transaction.Detail { Description = "Покупка", Amount = 299.99m };
+            Console.WriteLine($"[90] Транзакция: {detail.Description}, сумма: {detail.Amount}");
+        }
+
+        // 91
+        static void Demonstrate91()
+        {
+            Form.Field field = new Form.Field { Label = "Email", Value = "user@example.com" };
+            Console.WriteLine($"[91] Форма: {field.Label} = {field.Value}");
+        }
+
+        // 92
+        static void Demonstrate92()
+        {
+            Report.Header header = new Report.Header { Title = "Отчёт за март" };
+            Report.Body body = new Report.Body { Content = "Продажи выросли на 15%." };
+            Console.WriteLine($"[92] Отчёт: {header.Title} → {body.Content}");
+        }
+
+        // 93
+        static void Demonstrate93()
+        {
+            Shopping.CartItem item = new Shopping.CartItem { ProductName = "Смартфон", Quantity = 1 };
+            Console.WriteLine($"[93] Корзина: {item.ProductName} × {item.Quantity}");
+        }
+
+        // 94
+        static void Demonstrate94()
+        {
+            School.Class cls = new School.Class { Name = "11Б" };
+            School.StudentInfo student = new School.StudentInfo { Name = "Алексей" };
+            Console.WriteLine($"[94] Класс: {cls.Name}, Ученик: {student.Name}");
+        }
+
+        // 95
+        static void Demonstrate95()
+        {
+            Hospital.Doctor doc = new Hospital.Doctor { Name = "Доктор Смирнов" };
+            Hospital.Patient pat = new Hospital.Patient { Name = "Пациент Иванов" };
+            Console.WriteLine($"[95] Врач: {doc.Name}, Пациент: {pat.Name}");
+        }
+
+        // 96
+        static void Demonstrate96()
+        {
+            Queue96.Node front = new Queue96.Node { Value = 100 };
+            front.Next = new Queue96.Node { Value = 200 };
+            Console.WriteLine($"[96] Очередь: {front.Value} → {front.Next.Value}");
+        }
+
+        // 97
+        static void Demonstrate97()
+        {
+            Stack97.Element top = new Stack97.Element { Value = 999 };
+            top.Next = new Stack97.Element { Value = 888 };
+            Console.WriteLine($"[97] Стек: вершина = {top.Value}, ниже = {top.Next.Value}");
+        }
+
+        // 98
+        static void Demonstrate98()
+        {
+            Console.WriteLine("[98] Контейнер с интерфейсом IElement (пустой, для наследования)");
+        }
+
+        // 99
+        static void Demonstrate99()
+        {
+            Blog.Post post = new Blog.Post { Title = "Как стать программистом", Content = "Шаг 1: ..." };
+            Blog.Comment comment = new Blog.Comment { Text = "Отличная статья!" };
+            Console.WriteLine($"[99] Пост: {post.Title}, Комментарий: {comment.Text}");
+        }
+
+        // 100
+        static void Demonstrate100()
+        {
+            Repository.Entity entity = new Repository.Entity { ID = 42, Name = "Пользователь" };
+            Console.WriteLine($"[100] Репозиторий: ID={entity.ID}, Name='{entity.Name}'");
+        }
+    }
+}

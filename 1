@@ -1,0 +1,997 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp9
+{
+    class Program
+    {
+        static void Main()
+        {
+            Console.WriteLine("Выберите структуру для демонстрации (1-25):");
+            int choice = int.Parse(Console.ReadLine());
+
+            switch (choice)
+            {
+                case 1:
+                    DemonstratePoint();
+                    break;
+                case 2:
+                    DemonstrateRectangle();
+                    break;
+                case 3:
+                    DemonstrateColor();
+                    break;
+                case 4:
+                    DemonstrateDate();
+                    break;
+                case 5:
+                    DemonstrateMoney();
+                    break;
+                case 6:
+                    DemonstrateTemperature();
+                    break;
+                case 7:
+                    DemonstrateVector3D();
+                    break;
+                case 8:
+                    DemonstrateSize();
+                    break;
+                case 9:
+                    DemonstrateCoordinate();
+                    break;
+                case 10:
+                    DemonstratePhoneNumber();
+                    break;
+                case 11:
+                    DemonstrateRating();
+                    break;
+                case 12:
+                    DemonstrateTime();
+                    break;
+                case 13:
+                    DemonstrateInterval();
+                    break;
+                case 14:
+                    DemonstrateComplexNumber();
+                    break;
+                case 15:
+                    DemonstrateDimensions();
+                    break;
+                case 16:
+                    DemonstratePixel();
+                    break;
+                case 17:
+                    DemonstrateAngle();
+                    break;
+                case 18:
+                    DemonstrateSpeed();
+                    break;
+                case 19:
+                    DemonstrateWeight();
+                    break;
+                case 20:
+                    DemonstrateDuration();
+                    break;
+                case 21:
+                    DemonstratePosition();
+                    break;
+                case 22:
+                    DemonstrateFraction();
+                    break;
+                case 23:
+                    DemonstrateVersion();
+                    break;
+                case 24:
+                    DemonstrateDataSize();
+                    break;
+                case 25:
+                    DemonstrateGameScore();
+                    break;
+                default:
+                    Console.WriteLine("Неверный выбор");
+                    break;
+            }
+        }
+
+        // 1. Структура Point
+        public struct Point
+        {
+            public double X { get; set; }
+            public double Y { get; set; }
+
+            public Point(double x, double y)
+            {
+                X = x;
+                Y = y;
+            }
+
+            public double DistanceTo(Point other)
+            {
+                return Math.Sqrt(Math.Pow(X - other.X, 2) + Math.Pow(Y - other.Y, 2));
+            }
+
+            public override string ToString()
+            {
+                return $"({X}, {Y})";
+            }
+        }
+
+        static void DemonstratePoint()
+        {
+            Point p1 = new Point(3, 4);
+            Point p2 = new Point(6, 8);
+            Console.WriteLine($"Point 1: {p1}");
+            Console.WriteLine($"Point 2: {p2}");
+            Console.WriteLine($"Distance: {p1.DistanceTo(p2):F2}");
+        }
+
+        // 2. Структура Rectangle
+        public struct Rectangle
+        {
+            public double Width { get; set; }
+            public double Height { get; set; }
+
+            public Rectangle(double width, double height)
+            {
+                Width = width;
+                Height = height;
+            }
+
+            public double Area()
+            {
+                return Width * Height;
+            }
+
+            public double Perimeter()
+            {
+                return 2 * (Width + Height);
+            }
+        }
+
+        static void DemonstrateRectangle()
+        {
+            Rectangle rect = new Rectangle(5, 10);
+            Console.WriteLine($"Rectangle: {rect.Width}x{rect.Height}");
+            Console.WriteLine($"Area: {rect.Area()}");
+            Console.WriteLine($"Perimeter: {rect.Perimeter()}");
+        }
+
+        // 3. Структура Color
+        public struct Color
+        {
+            public byte R { get; set; }
+            public byte G { get; set; }
+            public byte B { get; set; }
+
+            public Color(byte r, byte g, byte b)
+            {
+                R = r;
+                G = g;
+                B = b;
+            }
+
+            public string ToHex()
+            {
+                return $"#{R:X2}{G:X2}{B:X2}";
+            }
+
+            public override string ToString()
+            {
+                return $"RGB({R}, {G}, {B})";
+            }
+        }
+
+        static void DemonstrateColor()
+        {
+            Color color = new Color(255, 128, 0);
+            Console.WriteLine($"Color: {color}");
+            Console.WriteLine($"Hex: {color.ToHex()}");
+        }
+
+        // 4. Структура Date
+        public struct Date
+        {
+            public int Day { get; set; }
+            public int Month { get; set; }
+            public int Year { get; set; }
+
+            public Date(int day, int month, int year)
+            {
+                Day = day;
+                Month = month;
+                Year = year;
+            }
+
+            public override string ToString()
+            {
+                return $"{Day:D2}.{Month:D2}.{Year}";
+            }
+
+            public bool IsValid()
+            {
+                try
+                {
+                    DateTime temp = new DateTime(Year, Month, Day);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
+
+        static void DemonstrateDate()
+        {
+            Date date = new Date(15, 12, 2023);
+            Console.WriteLine($"Date: {date}");
+            Console.WriteLine($"Is valid: {date.IsValid()}");
+        }
+
+        // 5. Структура Money
+        public struct Money
+        {
+            public decimal Amount { get; set; }
+            public string Currency { get; set; }
+
+            public Money(decimal amount, string currency = "USD")
+            {
+                Amount = amount;
+                Currency = currency;
+            }
+
+            public override string ToString()
+            {
+                return $"{Amount:F2} {Currency}";
+            }
+
+            public string FormatDetailed()
+            {
+                return $"Amount: {Amount:C}, Currency: {Currency}";
+            }
+
+            public Money Add(Money other)
+            {
+                if (this.Currency != other.Currency)
+                    throw new InvalidOperationException("Cannot add different currencies");
+                return new Money(this.Amount + other.Amount, this.Currency);
+            }
+        }
+
+        static void DemonstrateMoney()
+        {
+            Money money1 = new Money(100.50m, "USD");
+            Money money2 = new Money(50.25m, "USD");
+            Console.WriteLine($"Money 1: {money1}");
+            Console.WriteLine($"Money 2: {money2}");
+            Console.WriteLine($"Sum: {money1.Add(money2)}");
+        }
+
+        // 6. Структура Temperature
+        public struct Temperature
+        {
+            public double Celsius { get; set; }
+
+            public Temperature(double celsius)
+            {
+                Celsius = celsius;
+            }
+
+            public double Fahrenheit
+            {
+                get { return Celsius * 9 / 5 + 32; }
+            }
+
+            public double Kelvin
+            {
+                get { return Celsius + 273.15; }
+            }
+        }
+
+        static void DemonstrateTemperature()
+        {
+            Temperature temp = new Temperature(25);
+            Console.WriteLine($"Celsius: {temp.Celsius}°C");
+            Console.WriteLine($"Fahrenheit: {temp.Fahrenheit}°F");
+            Console.WriteLine($"Kelvin: {temp.Kelvin}K");
+        }
+
+        // 7. Структура Vector3D
+        public struct Vector3D
+        {
+            public double X { get; set; }
+            public double Y { get; set; }
+            public double Z { get; set; }
+
+            public Vector3D(double x, double y, double z)
+            {
+                X = x;
+                Y = y;
+                Z = z;
+            }
+
+            public double Magnitude()
+            {
+                return Math.Sqrt(X * X + Y * Y + Z * Z);
+            }
+
+            public Vector3D Add(Vector3D other)
+            {
+                return new Vector3D(X + other.X, Y + other.Y, Z + other.Z);
+            }
+
+            public double DotProduct(Vector3D other)
+            {
+                return X * other.X + Y * other.Y + Z * other.Z;
+            }
+        }
+
+        static void DemonstrateVector3D()
+        {
+            Vector3D v1 = new Vector3D(1, 2, 3);
+            Vector3D v2 = new Vector3D(4, 5, 6);
+            Console.WriteLine($"Vector 1: ({v1.X}, {v1.Y}, {v1.Z})");
+            Console.WriteLine($"Vector 2: ({v2.X}, {v2.Y}, {v2.Z})");
+            Console.WriteLine($"Magnitude v1: {v1.Magnitude():F2}");
+            Console.WriteLine($"Dot product: {v1.DotProduct(v2)}");
+        }
+
+        // 8. Структура Size
+        public struct Size
+        {
+            public double Width { get; set; }
+            public double Height { get; set; }
+
+            public Size(double width, double height)
+            {
+                Width = width;
+                Height = height;
+            }
+
+            public double Perimeter()
+            {
+                return 2 * (Width + Height);
+            }
+
+            public double Area()
+            {
+                return Width * Height;
+            }
+        }
+
+        static void DemonstrateSize()
+        {
+            Size size = new Size(8, 6);
+            Console.WriteLine($"Size: {size.Width}x{size.Height}");
+            Console.WriteLine($"Perimeter: {size.Perimeter()}");
+            Console.WriteLine($"Area: {size.Area()}");
+        }
+
+        // 9. Структура Coordinate
+        public struct Coordinate
+        {
+            public double Latitude { get; set; }
+            public double Longitude { get; set; }
+
+            public Coordinate(double latitude, double longitude)
+            {
+                Latitude = latitude;
+                Longitude = longitude;
+            }
+
+            public double DistanceTo(Coordinate other)
+            {
+                double radLat1 = Latitude * Math.PI / 180;
+                double radLat2 = other.Latitude * Math.PI / 180;
+                double deltaLat = (other.Latitude - Latitude) * Math.PI / 180;
+                double deltaLon = (other.Longitude - Longitude) * Math.PI / 180;
+
+                double a = Math.Sin(deltaLat / 2) * Math.Sin(deltaLat / 2) +
+                          Math.Cos(radLat1) * Math.Cos(radLat2) *
+                          Math.Sin(deltaLon / 2) * Math.Sin(deltaLon / 2);
+                double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+
+                return 6371 * c; 
+            }
+        }
+
+        static void DemonstrateCoordinate()
+        {
+            Coordinate coord1 = new Coordinate(55.7558, 37.6173); 
+            Coordinate coord2 = new Coordinate(59.9343, 30.3351);
+            Console.WriteLine($"Coordinate 1: {coord1.Latitude}°, {coord1.Longitude}°");
+            Console.WriteLine($"Coordinate 2: {coord2.Latitude}°, {coord2.Longitude}°");
+            Console.WriteLine($"Distance: {coord1.DistanceTo(coord2):F1} km");
+        }
+
+        // 10. Структура PhoneNumber
+        public struct PhoneNumber
+        {
+            public string CountryCode { get; set; }
+            public string Number { get; set; }
+
+            public PhoneNumber(string countryCode, string number)
+            {
+                CountryCode = countryCode;
+                Number = number;
+            }
+
+            public override string ToString()
+            {
+                return $"+{CountryCode} {Number}";
+            }
+
+            public string FormatInternational()
+            {
+                return $"+{CountryCode} {Number}";
+            }
+
+            public string FormatLocal()
+            {
+                return Number;
+            }
+        }
+
+        static void DemonstratePhoneNumber()
+        {
+            PhoneNumber phone = new PhoneNumber("7", "9123456789");
+            Console.WriteLine($"International: {phone.FormatInternational()}");
+            Console.WriteLine($"Local: {phone.FormatLocal()}");
+        }
+
+        // 11. Структура Rating
+        public struct Rating
+        {
+            private int _value;
+
+            public int Value
+            {
+                get { return _value; }
+                set
+                {
+                    if (value >= 1 && value <= 5)
+                        _value = value;
+                    else
+                        throw new ArgumentException("Rating must be between 1 and 5");
+                }
+            }
+
+            public Rating(int value)
+            {
+                _value = 1;
+                Value = value;
+            }
+
+            public bool IsValid()
+            {
+                return _value >= 1 && _value <= 5;
+            }
+
+            public string ToStars()
+            {
+                return new string('★', _value) + new string('☆', 5 - _value);
+            }
+        }
+
+        static void DemonstrateRating()
+        {
+            Rating rating = new Rating(4);
+            Console.WriteLine($"Rating: {rating.Value}");
+            Console.WriteLine($"Stars: {rating.ToStars()}");
+            Console.WriteLine($"Is valid: {rating.IsValid()}");
+        }
+
+        // 12. Структура Time
+        public struct Time
+        {
+            public int Hours { get; set; }
+            public int Minutes { get; set; }
+            public int Seconds { get; set; }
+
+            public Time(int hours, int minutes, int seconds = 0)
+            {
+                Hours = hours;
+                Minutes = minutes;
+                Seconds = seconds;
+            }
+
+            public override string ToString()
+            {
+                return $"{Hours:D2}:{Minutes:D2}:{Seconds:D2}";
+            }
+
+            public int TotalSeconds()
+            {
+                return Hours * 3600 + Minutes * 60 + Seconds;
+            }
+        }
+
+        static void DemonstrateTime()
+        {
+            Time time = new Time(14, 30, 45);
+            Console.WriteLine($"Time: {time}");
+            Console.WriteLine($"Total seconds: {time.TotalSeconds()}");
+        }
+
+        // 13. Структура Interval
+        public struct Interval
+        {
+            public double Start { get; set; }
+            public double End { get; set; }
+
+            public Interval(double start, double end)
+            {
+                Start = start;
+                End = end;
+            }
+
+            public double Length()
+            {
+                return Math.Abs(End - Start);
+            }
+
+            public bool Contains(double value)
+            {
+                return value >= Start && value <= End;
+            }
+        }
+
+        static void DemonstrateInterval()
+        {
+            Interval interval = new Interval(2.5, 7.8);
+            Console.WriteLine($"Interval: [{interval.Start}, {interval.End}]");
+            Console.WriteLine($"Length: {interval.Length()}");
+            Console.WriteLine($"Contains 5.0: {interval.Contains(5.0)}");
+        }
+
+        // 14. Структура ComplexNumber
+        public struct ComplexNumber
+        {
+            public double Real { get; set; }
+            public double Imaginary { get; set; }
+
+            public ComplexNumber(double real, double imaginary)
+            {
+                Real = real;
+                Imaginary = imaginary;
+            }
+
+            public ComplexNumber Add(ComplexNumber other)
+            {
+                return new ComplexNumber(Real + other.Real, Imaginary + other.Imaginary);
+            }
+
+            public ComplexNumber Multiply(ComplexNumber other)
+            {
+                return new ComplexNumber(
+                    Real * other.Real - Imaginary * other.Imaginary,
+                    Real * other.Imaginary + Imaginary * other.Real
+                );
+            }
+
+            public override string ToString()
+            {
+                return $"{Real} + {Imaginary}i";
+            }
+        }
+
+        static void DemonstrateComplexNumber()
+        {
+            ComplexNumber c1 = new ComplexNumber(3, 4);
+            ComplexNumber c2 = new ComplexNumber(1, 2);
+            Console.WriteLine($"Complex 1: {c1}");
+            Console.WriteLine($"Complex 2: {c2}");
+            Console.WriteLine($"Sum: {c1.Add(c2)}");
+            Console.WriteLine($"Product: {c1.Multiply(c2)}");
+        }
+
+        // 15. Структура Dimensions
+        public struct Dimensions
+        {
+            public double Length { get; set; }
+            public double Width { get; set; }
+            public double Height { get; set; }
+
+            public Dimensions(double length, double width, double height)
+            {
+                Length = length;
+                Width = width;
+                Height = height;
+            }
+
+            public double Volume()
+            {
+                return Length * Width * Height;
+            }
+
+            public double SurfaceArea()
+            {
+                return 2 * (Length * Width + Length * Height + Width * Height);
+            }
+        }
+
+        static void DemonstrateDimensions()
+        {
+            Dimensions dim = new Dimensions(10, 5, 3);
+            Console.WriteLine($"Dimensions: {dim.Length}x{dim.Width}x{dim.Height}");
+            Console.WriteLine($"Volume: {dim.Volume()}");
+            Console.WriteLine($"Surface area: {dim.SurfaceArea()}");
+        }
+
+        // 16. Структура Pixel
+        public struct Pixel
+        {
+            public int X { get; set; }
+            public int Y { get; set; }
+            public Color Color { get; set; }
+
+            public Pixel(int x, int y, Color color)
+            {
+                X = x;
+                Y = y;
+                Color = color;
+            }
+
+            public override string ToString()
+            {
+                return $"Pixel({X}, {Y}) - {Color}";
+            }
+
+            public double DistanceTo(Pixel other)
+            {
+                return Math.Sqrt(Math.Pow(X - other.X, 2) + Math.Pow(Y - other.Y, 2));
+            }
+        }
+
+        static void DemonstratePixel()
+        {
+            Color pixelColor = new Color(255, 0, 0);
+            Pixel pixel1 = new Pixel(10, 20, pixelColor);
+            Pixel pixel2 = new Pixel(30, 40, pixelColor);
+            Console.WriteLine($"Pixel 1: {pixel1}");
+            Console.WriteLine($"Pixel 2: {pixel2}");
+            Console.WriteLine($"Distance: {pixel1.DistanceTo(pixel2):F2}");
+        }
+
+        // 17. Структура Angle
+        public struct Angle
+        {
+            public double Degrees { get; set; }
+
+            public Angle(double degrees)
+            {
+                Degrees = degrees;
+            }
+
+            public double Radians
+            {
+                get { return Degrees * Math.PI / 180; }
+            }
+
+            public Angle Normalize()
+            {
+                double normalized = Degrees % 360;
+                if (normalized < 0) normalized += 360;
+                return new Angle(normalized);
+            }
+        }
+
+        static void DemonstrateAngle()
+        {
+            Angle angle = new Angle(180);
+            Console.WriteLine($"Degrees: {angle.Degrees}°");
+            Console.WriteLine($"Radians: {angle.Radians:F4}");
+            Console.WriteLine($"Normalized 450°: {new Angle(450).Normalize().Degrees}°");
+        }
+
+        // 18. Структура Speed
+        public struct Speed
+        {
+            public double Value { get; set; }
+            public string Unit { get; set; }
+
+            public Speed(double value, string unit = "km/h")
+            {
+                Value = value;
+                Unit = unit;
+            }
+
+            public Speed ToUnit(string targetUnit)
+            {
+                if (Unit == targetUnit) return this;
+
+                double factor = 1.0;
+
+                double msValue = Value;
+                if (Unit == "km/h") msValue = Value / 3.6;
+                else if (Unit == "mph") msValue = Value * 0.44704;
+
+                if (targetUnit == "m/s") return new Speed(msValue, "m/s");
+                else if (targetUnit == "km/h") return new Speed(msValue * 3.6, "km/h");
+                else if (targetUnit == "mph") return new Speed(msValue / 0.44704, "mph");
+                else return this;
+            }
+        }
+
+        static void DemonstrateSpeed()
+        {
+            Speed speed = new Speed(100, "km/h");
+            Console.WriteLine($"Speed: {speed.Value} {speed.Unit}");
+            Console.WriteLine($"In m/s: {speed.ToUnit("m/s").Value:F1} m/s");
+            Console.WriteLine($"In mph: {speed.ToUnit("mph").Value:F1} mph");
+        }
+
+        // 19. Структура Weight
+        public struct Weight
+        {
+            public double Kilograms { get; set; }
+
+            public Weight(double kilograms)
+            {
+                Kilograms = kilograms;
+            }
+
+            public double Pounds
+            {
+                get { return Kilograms * 2.20462; }
+            }
+
+            public double Grams
+            {
+                get { return Kilograms * 1000; }
+            }
+        }
+
+        static void DemonstrateWeight()
+        {
+            Weight weight = new Weight(10);
+            Console.WriteLine($"Kilograms: {weight.Kilograms} kg");
+            Console.WriteLine($"Pounds: {weight.Pounds:F2} lb");
+            Console.WriteLine($"Grams: {weight.Grams} g");
+        }
+
+        // 20. Структура Duration
+        public struct Duration
+        {
+            public int Days { get; set; }
+            public int Hours { get; set; }
+            public int Minutes { get; set; }
+            public int Seconds { get; set; }
+
+            public Duration(int days, int hours, int minutes, int seconds)
+            {
+                Days = days;
+                Hours = hours;
+                Minutes = minutes;
+                Seconds = seconds;
+                Normalize();
+            }
+
+            private void Normalize()
+            {
+                int totalSeconds = TotalSeconds();
+                Seconds = totalSeconds % 60;
+                totalSeconds /= 60;
+                Minutes = totalSeconds % 60;
+                totalSeconds /= 60;
+                Hours = totalSeconds % 24;
+                Days = totalSeconds / 24;
+            }
+
+            public int TotalSeconds()
+            {
+                return Days * 86400 + Hours * 3600 + Minutes * 60 + Seconds;
+            }
+
+            public override string ToString()
+            {
+                return $"{Days}d {Hours}h {Minutes}m {Seconds}s";
+            }
+        }
+
+        static void DemonstrateDuration()
+        {
+            Duration duration = new Duration(1, 25, 70, 65);
+            Console.WriteLine($"Duration: {duration}");
+            Console.WriteLine($"Total seconds: {duration.TotalSeconds()}");
+        }
+
+        // 21. Структура Position
+        public struct Position
+        {
+            public double X { get; set; }
+            public double Y { get; set; }
+
+            public Position(double x, double y)
+            {
+                X = x;
+                Y = y;
+            }
+
+            public int Quadrant()
+            {
+                if (X > 0 && Y > 0) return 1;
+                if (X < 0 && Y > 0) return 2;
+                if (X < 0 && Y < 0) return 3;
+                if (X > 0 && Y < 0) return 4;
+                return 0; 
+            }
+
+            public double DistanceFromOrigin()
+            {
+                return Math.Sqrt(X * X + Y * Y);
+            }
+        }
+
+        static void DemonstratePosition()
+        {
+            Position pos = new Position(3, -4);
+            Console.WriteLine($"Position: ({pos.X}, {pos.Y})");
+            Console.WriteLine($"Quadrant: {pos.Quadrant()}");
+            Console.WriteLine($"Distance from origin: {pos.DistanceFromOrigin():F2}");
+        }
+
+        // 22. Структура Fraction
+        public struct Fraction
+        {
+            public int Numerator { get; set; }
+            public int Denominator { get; set; }
+
+            public Fraction(int numerator, int denominator)
+            {
+                Numerator = numerator;
+                Denominator = denominator;
+                Simplify();
+            }
+
+            private void Simplify()
+            {
+                int gcd = GCD(Math.Abs(Numerator), Math.Abs(Denominator));
+                Numerator /= gcd;
+                Denominator /= gcd;
+
+                if (Denominator < 0)
+                {
+                    Numerator = -Numerator;
+                    Denominator = -Denominator;
+                }
+            }
+
+            private int GCD(int a, int b)
+            {
+                while (b != 0)
+                {
+                    int temp = b;
+                    b = a % b;
+                    a = temp;
+                }
+                return a;
+            }
+
+            public override string ToString()
+            {
+                return $"{Numerator}/{Denominator}";
+            }
+
+            public double ToDouble()
+            {
+                return (double)Numerator / Denominator;
+            }
+        }
+
+        static void DemonstrateFraction()
+        {
+            Fraction fraction = new Fraction(8, 12);
+            Console.WriteLine($"Fraction: {fraction}");
+            Console.WriteLine($"As double: {fraction.ToDouble():F3}");
+        }
+
+        // 23. Структура Version
+        public struct Version
+        {
+            public int Major { get; set; }
+            public int Minor { get; set; }
+            public int Build { get; set; }
+
+            public Version(int major, int minor, int build = 0)
+            {
+                Major = major;
+                Minor = minor;
+                Build = build;
+            }
+
+            public override string ToString()
+            {
+                return Build == 0 ? $"{Major}.{Minor}" : $"{Major}.{Minor}.{Build}";
+            }
+
+            public bool IsCompatibleWith(Version other)
+            {
+                return Major == other.Major;
+            }
+        }
+
+        static void DemonstrateVersion()
+        {
+            Version version = new Version(2, 1, 15);
+            Version other = new Version(2, 0);
+            Console.WriteLine($"Version: {version}");
+            Console.WriteLine($"Is compatible with {other}: {version.IsCompatibleWith(other)}");
+        }
+
+        // 24. Структура DataSize
+        public struct DataSize
+        {
+            public long Bytes { get; set; }
+
+            public DataSize(long bytes)
+            {
+                Bytes = bytes;
+            }
+
+            public string Format()
+            {
+                string[] sizes = { "B", "KB", "MB", "GB", "TB" };
+                double len = Bytes;
+                int order = 0;
+
+                while (len >= 1024 && order < sizes.Length - 1)
+                {
+                    order++;
+                    len /= 1024;
+                }
+
+                return $"{len:F2} {sizes[order]}";
+            }
+
+            public double Kilobytes { get { return Bytes / 1024.0; } }
+            public double Megabytes { get { return Bytes / 1048576.0; } }
+            public double Gigabytes { get { return Bytes / 1073741824.0; } }
+        }
+
+        static void DemonstrateDataSize()
+        {
+            DataSize size = new DataSize(1500000);
+            Console.WriteLine($"Bytes: {size.Bytes}");
+            Console.WriteLine($"Formatted: {size.Format()}");
+            Console.WriteLine($"Megabytes: {size.Megabytes:F2} MB");
+        }
+
+        // 25. Структура GameScore
+        public struct GameScore
+        {
+            public string PlayerName { get; set; }
+            public int Score { get; set; }
+
+            public GameScore(string playerName, int score)
+            {
+                PlayerName = playerName;
+                Score = score;
+            }
+
+            public override string ToString()
+            {
+                return $"{PlayerName}: {Score} points";
+            }
+
+            public string GetRank()
+            {
+                if (Score >= 1000) return "Legend";
+                if (Score >= 500) return "Expert";
+                if (Score >= 200) return "Advanced";
+                if (Score >= 100) return "Intermediate";
+                return "Beginner";
+            }
+        }
+
+        static void DemonstrateGameScore()
+        {
+            GameScore score = new GameScore("Player1", 750);
+            Console.WriteLine($"Score: {score}");
+            Console.WriteLine($"Rank: {score.GetRank()}");
+        }
+    }
+}
